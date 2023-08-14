@@ -1,0 +1,31 @@
+<li
+  class="flex flex-row gap-2 px-4 py-2 justify-between w-full border-solid border rounded-md bg-white"
+>
+  <div class="flex items-center gap-4 w-full">
+    <input
+      type="checkbox"
+      [(ngModel)]="todo.isDone"
+      class="w-[1.3rem] h-[1.3rem] peer"
+      (change)="handleChecked()"
+    />
+    <input
+      [id]="todo.id"
+      type="text"
+      [readonly]="!isEditing"
+      [(ngModel)]="todo.task"
+      [value]="todo.task"
+      [autofocus]="isEditing"
+      class="peer-checked:line-through p-1 w-full max-w-[350px] overflow-hidden text-ellipsis focus:break-words focus:break-all focus:h-[3rem]"
+      #taskInput
+    />
+  </div>
+  <div class="flex gap-2">
+    <button
+      *ngIf="!todo.isDone"
+      (click)="isEditing ? updateTodo() : editTodo()"
+    >
+      {{ isEditing ? "Guardar" : "Editar" }}
+    </button>
+    <button (click)="deleteTodo()">Eliminar</button>
+  </div>
+</li>

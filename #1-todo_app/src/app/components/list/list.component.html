@@ -1,0 +1,36 @@
+<section class="flex flex-col gap-4 w-full max-w-xl items-center mt-4">
+  <div class="flex flex-row w-full justify-between gap-4">
+    <input
+      class="px-2 py-1 rounded w-96"
+      type="text"
+      placeholder="Nueva tarea..."
+      [(ngModel)]="newTask"
+    />
+    <button
+      class="bg-white px-3 py-1 rounded uppercase disabled:opacity-[.5]"
+      [disabled]="!newTask.length"
+      (click)="createTodo()"
+    >
+      Agregar
+    </button>
+  </div>
+
+  <div *ngIf="isLoading; todosList" class="flex flex-col w-full gap-2">
+    Cargando...
+  </div>
+  <ul #todosList class="flex flex-col w-full gap-2 mt-4">
+    <ng-container *ngIf="todos.length > 0; msgEmptyList">
+      <app-todo-item
+        *ngFor="let todo of todos"
+        class="flex flex-row gap-2"
+        [todo]="todo"
+        (deleteTodoEvent)="deleteTodo($event)"
+      ></app-todo-item>
+    </ng-container>
+    <ng-template #msgEmptyList>
+      <h1 class="text-3xl text-white text-center">
+        No tenés tareas pendientes!
+      </h1>
+    </ng-template>
+  </ul>
+</section>
